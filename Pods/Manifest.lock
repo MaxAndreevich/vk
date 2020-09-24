@@ -1,0 +1,26 @@
+PODS:
+  - Alamofire (5.2.2)
+  - EasyPeasy (1.9.0)
+  - Kingfisher (5.15.0):
+    - Kingfisher/Core (= 5.15.0)
+  - Kingfisher/Core (5.15.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - EasyPeasy
+  - Kingfisher
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - EasyPeasy
+    - Kingfisher
+
+SPEC CHECKSUMS:
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  EasyPeasy: 19a84ef8f8bbcf925b9fecc29d1d78b7dab96718
+  Kingfisher: 1acb67597a520c2d0310677e66d6e0af455ef757
+
+PODFILE CHECKSUM: 2cc8fe7cfce060b0a52638310e9cfa45630d2322
+
+COCOAPODS: 1.9.3
