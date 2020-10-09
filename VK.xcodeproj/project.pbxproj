@@ -27,7 +27,7 @@
 		0C9C1DC9251B9E5A0081A4C8 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9C1DC8251B9E5A0081A4C8 /* Friend.swift */; };
 		0C9C1DCB251B9E8D0081A4C8 /* FriendsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9C1DCA251B9E8D0081A4C8 /* FriendsPresenter.swift */; };
 		0CB999C725191FB000BBEA52 /* GroupsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB999C625191FB000BBEA52 /* GroupsPresenter.swift */; };
-		0CB999C92519202F00BBEA52 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB999C82519202F00BBEA52 /* Group.swift */; };
+		0CB999C92519202F00BBEA52 /* GroupVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB999C82519202F00BBEA52 /* GroupVK.swift */; };
 		0CB999CB251920D100BBEA52 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB999CA251920D100BBEA52 /* GroupsCell.swift */; };
 		0CB999CD251B576800BBEA52 /* MessangesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB999CC251B576800BBEA52 /* MessangesCell.swift */; };
 		0CB999CF251B577600BBEA52 /* Messange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB999CE251B577600BBEA52 /* Messange.swift */; };
@@ -58,7 +58,7 @@
 		0C9C1DC8251B9E5A0081A4C8 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		0C9C1DCA251B9E8D0081A4C8 /* FriendsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPresenter.swift; sourceTree = "<group>"; };
 		0CB999C625191FB000BBEA52 /* GroupsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsPresenter.swift; sourceTree = "<group>"; };
-		0CB999C82519202F00BBEA52 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		0CB999C82519202F00BBEA52 /* GroupVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVK.swift; sourceTree = "<group>"; };
 		0CB999CA251920D100BBEA52 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		0CB999CC251B576800BBEA52 /* MessangesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangesCell.swift; sourceTree = "<group>"; };
 		0CB999CE251B577600BBEA52 /* Messange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messange.swift; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				0C49A2A525164131004B0877 /* New.swift */,
-				0CB999C82519202F00BBEA52 /* Group.swift */,
+				0CB999C82519202F00BBEA52 /* GroupVK.swift */,
 				0CB999CE251B577600BBEA52 /* Messange.swift */,
 				0C9C1DC8251B9E5A0081A4C8 /* Friend.swift */,
 				0C7C1C4B251CCCE400189ECE /* Profile.swift */,
@@ -387,7 +387,7 @@
 				0C7C1C4E251CCCFC00189ECE /* ProfilesPresenter.swift in Sources */,
 				0C49A2A625164131004B0877 /* New.swift in Sources */,
 				0CB999D1251B579100BBEA52 /* MessangesPresenter.swift in Sources */,
-				0CB999C92519202F00BBEA52 /* Group.swift in Sources */,
+				0CB999C92519202F00BBEA52 /* GroupVK.swift in Sources */,
 				0C4EC9862516309400A92031 /* NewsCell.swift in Sources */,
 				0C9C1DC9251B9E5A0081A4C8 /* Friend.swift in Sources */,
 				0C045E042511665A00531FB1 /* AppDelegate.swift in Sources */,
