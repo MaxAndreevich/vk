@@ -27,6 +27,7 @@ class GroupsCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpView()
         directionLabel.font = UIFont(name: "Arial", size: 12)
+        directionLabel.numberOfLines = 0
     }
     
     required init?(coder: NSCoder) {
@@ -47,20 +48,22 @@ class GroupsCell: UITableViewCell {
         avatarImage.contentMode = .scaleAspectFill
         
         groupNameLabel.easy.layout(Top(5).to(avatarImage,.top),
-                              Leading(5).to(avatarImage,.trailing))
+                              Leading(5).to(avatarImage,.trailing),
+                              Trailing(15))
         
-        directionLabel.easy.layout(Top(5).to(groupNameLabel,.bottom),
-                              Leading(5).to(avatarImage,.trailing))
+        directionLabel.easy.layout(Top(2).to(groupNameLabel,.bottom),
+                              Leading(5).to(avatarImage,.trailing),
+                              Trailing(10),
+                              Bottom(10))
         }
         
-    func setUp(groupModel: Group) {
+    func setUp(groupModel: GroupVK) {
         
         groupNameLabel.text = groupModel.name
-        directionLabel.text = groupModel.direction
+        
+        directionLabel.text = groupModel.activity
 
-        if let avatar = groupModel.avatarURL {
-            avatarImage.kf.setImage(with: avatar)
-        }
+        avatarImage.kf.setImage(with: URL(string: groupModel.photo100))
         
     }
     

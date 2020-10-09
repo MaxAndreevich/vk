@@ -21,15 +21,18 @@ class TabBarController: UITabBarController {
         
         let groupsPresenter = GroupsPresenter()
         let groupsViewController = GroupsViewController(presenter: groupsPresenter)
+        groupsPresenter.viewController = groupsViewController
         
         let messangesPresenter = MessangesPresenter()
         let messangesViewController = MessangesViewController(presenter: messangesPresenter)
         
         let friendsPresenter = FriendsPresenter()
         let friendsViewController = FriendsViewController(presenter: friendsPresenter)
+        friendsPresenter.viewController = friendsViewController
         
         let profilePresenter = ProfilesPresenter()
         let profileViewController = ProfileViewController(presenter: profilePresenter)
+        
         
         newsViewController.tabBarItem.image = UIImage(named: "news")
         groupsViewController.tabBarItem.image = UIImage(named: "group")

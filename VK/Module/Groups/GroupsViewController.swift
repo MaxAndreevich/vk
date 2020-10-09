@@ -36,6 +36,16 @@ class GroupsViewController: UIViewController{
         
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.test()
+        
+    }
+    
+    func reload() {
+        tableView.reloadData()
+    }
 }
 
 extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
