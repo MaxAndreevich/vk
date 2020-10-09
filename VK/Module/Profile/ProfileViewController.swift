@@ -12,7 +12,6 @@ import UIKit
 class ProfileViewController: UITableViewController {
     
     var presenter: ProfilesPresenter?
-    
     init(presenter: ProfilesPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -29,13 +28,17 @@ class ProfileViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(ProfilesCell.self, forCellReuseIdentifier: "cellId")
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter?.getNumberOfRowsInSection(section: section) ?? 0
     }
-    
-    
+//    func calledGetNumber() {
+//        let section: Int
+//        presenter?.getNumberOfRowsInSection(section: section)
+//    }
+//
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as? ProfilesCell,

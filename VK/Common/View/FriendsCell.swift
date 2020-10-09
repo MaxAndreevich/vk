@@ -61,12 +61,11 @@ class FriendsCell: UITableViewCell {
     
     func setUp(friendModel: Friend) {
         
-        nameFriendLabel.text = friendModel.name
-        cityLabel.text = friendModel.city
+        nameFriendLabel.text = friendModel.fullname
 
-        if let avatar = friendModel.avatarURL {
-            avatarImage.kf.setImage(with: avatar)
-        }
+        avatarImage.kf.setImage(with: URL(string: friendModel.photo100))
+        
+        cityLabel.text = friendModel.city?.city
         
     }
 }
