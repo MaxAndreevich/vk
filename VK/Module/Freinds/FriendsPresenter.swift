@@ -34,6 +34,10 @@ class FriendsPresenter {
         return friend[indexPath.row]
     }
     
+    func selectViewData(at indexPath: IndexPath) {
+        
+    }
+    
     
 
     func test() {
@@ -41,7 +45,7 @@ class FriendsPresenter {
         
         let vkURL = "https://api.vk.com/method/"
         let requestURL = vkURL + "friends.get"
-        let params = ["access_token": "1c25c3ca155ddeedcc55d487e79e53072a6ab1bae4d2da72d6abd2a6106d545a81dd00072f00bfce1b327",
+        let params = ["access_token": "1cea72839cba191953f390b64aeca3f1a634e58d9290cca005276aa6292fb7f90747b434d299f96e42f21",
                       "fields": "photo_100, city",
                       "order": "hints",
                       "v": "5.124"]
