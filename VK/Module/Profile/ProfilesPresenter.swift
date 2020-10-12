@@ -7,39 +7,38 @@
 //
 
 import Foundation
+import Alamofire
 
 class ProfilesPresenter {
     
     weak var viewController: ProfileViewController?
-    var profile: [Profile] = [Profile(userId: "Userid",
-                                      avatarURL: URL(string: "https://m.thepeoplesdialogue.org.za/Assets/images/about-herman.png"),
-                                      name: "Full name",
-                                      status: "Online or Offline",
-                                      thoughts: "Thought",
-                                      countFriend: 10,
-                                      city: "Moscow",
-                                      countSubscribers: 15,
-                                      placeWork: "Home",
-                                      placeLearn: "Sochi")]
     
-    func getNumberOfRowsInSection(section: Int) -> Int {
-        return profile.count
-    }
+    var profile: Profile?
     
-    func getModelAtIndex(indexPath: IndexPath) -> Profile {
 
-        var profileModel = Profile(userId: profile[indexPath.row].userId,
-                                   avatarURL: profile[indexPath.row].avatarURL,
-                                   name: profile[indexPath.row].name,
-                                   status: profile[indexPath.row].status,
-                                   thoughts: profile[indexPath.row].thoughts,
-                                   countFriend: profile[indexPath.row].countFriend,
-                                   city: profile[indexPath.row].city,
-                                   countSubscribers: profile[indexPath.row].countSubscribers,
-                                   placeWork: profile[indexPath.row].placeWork,
-                                   placeLearn: profile[indexPath.row].placeLearn)
+    func test() {
         
-        return profileModel
+        
+        let vkURL = "https://api.vk.com/method/"
+        let requestURL = vkURL + "users.get"
+        let params = ["access_token": "1cea72839cba191953f390b64aeca3f1a634e58d9290cca005276aa6292fb7f90747b434d299f96e42f21",
+                      "user_id": "54439078",
+                      "fields": "photo_100,city,counters,domain",
+                      "v": "5.52"]
+        AF.request(requestURL, method: .post, parameters: params).validate()
+            .responseDecodable(of: SimpleResponse<[Profile]>.self) { response in
+                dump(response.error)
+                guard let resp = response.value else { return }
+                dump(response)
+                self.profile = resp.response.first
+                self.viewController?.setUp(profileModel: self.profile ?? Profile())
+                
+                
+        }
     }
     
+}
+
+struct SimpleResponse<T: Decodable>: Decodable {
+    var response: T
 }

@@ -8,18 +8,60 @@
 
 import Foundation
 
-struct Profile {
+struct Profile: Codable {
     
-    var userId: String
-    var avatarURL: URL?
-    var name: String
-    var status: String
-    var thoughts: String
-    var countFriend: Int
-    var city: String
-    var countSubscribers: Int
-    var placeWork: String
-    var placeLearn: String
-//    var countPhoto: Int
+    var id: Int?
+    let firstName: String
+    let lastName: String
+    var fullname: String { return firstName + " " + lastName }
+    var city: City?
+    var about: String?
+    var counters: Counters?
+    var domain: String?
+    var avatarURL: String?
+
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case city
+        case about
+        case counters
+        case domain
+        case avatarURL = "photo_100"
+         
+    }
+    
+    init() {
+        
+        firstName = ""
+        lastName = ""
+        city = nil
+        about = ""
+        counters = nil
+        domain = ""
+        avatarURL = nil
+    }
     
 }
+
+
+struct Counters: Codable {
+    
+    var friends: Int
+    var followers: Int
+    var photos: Int
+    
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case friends
+        case followers
+        case photos
+        
+    }
+    
+
+}
+

@@ -18,20 +18,28 @@ class TabBarController: UITabBarController {
         
         let newsPresenter = NewsPresenter()
         let newsViewController = NewsViewController(presenter: newsPresenter)
+        let navigationControllerNews = UINavigationController(rootViewController: newsViewController)
+        
         
         let groupsPresenter = GroupsPresenter()
         let groupsViewController = GroupsViewController(presenter: groupsPresenter)
         groupsPresenter.viewController = groupsViewController
+        let navigationControllerGroups = UINavigationController(rootViewController: groupsViewController)
         
         let messangesPresenter = MessangesPresenter()
         let messangesViewController = MessangesViewController(presenter: messangesPresenter)
+        let navigationControllerMessanges = UINavigationController(rootViewController: messangesViewController)
         
         let friendsPresenter = FriendsPresenter()
         let friendsViewController = FriendsViewController(presenter: friendsPresenter)
         friendsPresenter.viewController = friendsViewController
+        let navigationControllerFriends = UINavigationController(rootViewController: friendsViewController)
         
         let profilePresenter = ProfilesPresenter()
         let profileViewController = ProfileViewController(presenter: profilePresenter)
+        profilePresenter.viewController = profileViewController
+        let navigationControllerProfile = UINavigationController(rootViewController: profileViewController)
+        
         
         
         newsViewController.tabBarItem.image = UIImage(named: "news")
@@ -48,8 +56,8 @@ class TabBarController: UITabBarController {
         friendsViewController.tabBarItem.title = "Freinds"
         profileViewController.tabBarItem.title = "Profile"
         
-        controllers = [newsViewController, groupsViewController, messangesViewController,
-                                    friendsViewController, profileViewController]
+        controllers = [navigationControllerNews, navigationControllerGroups, navigationControllerMessanges,
+                                    navigationControllerFriends, navigationControllerProfile]
         viewControllers = controllers
     }
 }

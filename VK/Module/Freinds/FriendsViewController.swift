@@ -63,14 +63,16 @@ class FriendsViewController: UIViewController {
         view.addSubview(searchFriends)
         view.addSubview(tableView)
         
-        searchFriends.easy.layout(Top(20),
+        searchFriends.easy.layout(Bottom(5).to(tableView,.top),
+                                  Top(),
                                   Trailing(),
                                   Leading())
-        
-        tableView.easy.layout(Top().to(searchFriends,.bottom),
+
+        tableView.easy.layout(Top(5).to(searchFriends,.bottom),
                               Leading(),
                               Trailing(),
                               Bottom())
+        
     }
     
 }
@@ -84,9 +86,13 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource, UIS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as? FriendsCell,
         let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
-
+        print("++++ \(model.id)")
         cell.setUp(friendModel: model)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
     
 
