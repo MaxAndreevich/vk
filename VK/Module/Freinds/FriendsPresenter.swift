@@ -12,18 +12,6 @@ class FriendsPresenter {
     
     weak var viewController: FriendsViewController?
 
-//    var filtr: [Friend] {
-//        if viewController?.activeSearch ?? true {
-//            return friend.filter({ (mod) -> Bool in
-//                return mod.fullname.range(of: viewController?.searchFriends.text ?? "",
-//                                          options: .caseInsensitive,
-//                                          range: nil,
-//                                          locale: nil) != nil
-//            })
-//        } else {
-//            return friend
-//        }
-//    }
     var friend: [Friend] = []
 
     func getNumberOfRowsInSection(section: Int) -> Int {
@@ -36,6 +24,12 @@ class FriendsPresenter {
     
     func selectViewData(at indexPath: IndexPath) {
         
+        let profilePresenter = ProfilesPresenter(id: friend[indexPath.row].id)
+        let profileViewController = ProfileViewController(presenter: profilePresenter)
+        profilePresenter.viewController = profileViewController
+//        print(friend[indexPath.row].id)
+        self.viewController?.navigationController?.pushViewController(profileViewController, animated: true)
+
     }
     
     
@@ -45,17 +39,17 @@ class FriendsPresenter {
         
         let vkURL = "https://api.vk.com/method/"
         let requestURL = vkURL + "friends.get"
-        let params = ["access_token": "1cea72839cba191953f390b64aeca3f1a634e58d9290cca005276aa6292fb7f90747b434d299f96e42f21",
+        let params = ["access_token": "1d8eade1256b2fd7935d8bf47167c1b7da78baf50189c0bfd3a6d94d8033b0ea750e24656dda0f7408c51",
                       "fields": "photo_100, city",
                       "order": "hints",
                       "v": "5.124"]
         AF.request(requestURL, method: .post, parameters: params).validate()
             .responseDecodable(of: CommonResponse<Friend>.self) { response in
+                //dump(response)
                 guard let resp = response.value else { return }
                 
-                
                 self.friend = resp.response.items
-                print(self.friend)
+                //print(self.friend)
                 
                 self.viewController?.reload()
                 

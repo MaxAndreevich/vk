@@ -16,19 +16,13 @@ class FriendsViewController: UIViewController {
     var searchFriends = UISearchBar()
     var tableView = UITableView()
     
-    var activeSearch: Bool {
-        if  searchFriends.text == "" {
-            return false
-        }
-        return true
-    }
     
-    var filtered: [Friend]
+//    var filtered: [Friend]
     
     
     init(presenter: FriendsPresenter) {
         self.presenter = presenter
-        filtered = presenter.friend
+//        filtered = presenter.friend
         super.init(nibName: nil, bundle: nil)
         
     }
@@ -86,13 +80,13 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource, UIS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as? FriendsCell,
         let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
-        print("++++ \(model.id)")
         cell.setUp(friendModel: model)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        presenter?.selectViewData(at: indexPath)
     }
     
 

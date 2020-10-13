@@ -33,11 +33,14 @@ class TabBarController: UITabBarController {
         let friendsPresenter = FriendsPresenter()
         let friendsViewController = FriendsViewController(presenter: friendsPresenter)
         friendsPresenter.viewController = friendsViewController
+        
         let navigationControllerFriends = UINavigationController(rootViewController: friendsViewController)
         
-        let profilePresenter = ProfilesPresenter()
+        let profilePresenter = ProfilesPresenter(id: nil)
         let profileViewController = ProfileViewController(presenter: profilePresenter)
         profilePresenter.viewController = profileViewController
+        
+//        profileViewController.presenter = profilePresenter
         let navigationControllerProfile = UINavigationController(rootViewController: profileViewController)
         
         
