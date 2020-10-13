@@ -28,19 +28,19 @@ class GroupsPresenter {
         
         let vkURL = "https://api.vk.com/method/"
         let requestURL = vkURL + "groups.get"
-        let params = ["access_token": "1c25c3ca155ddeedcc55d487e79e53072a6ab1bae4d2da72d6abd2a6106d545a81dd00072f00bfce1b327",
+        let params = ["access_token": "1525d9945afe34a35ca137f6fd13d76a4d636e4698d89474d6c0f515c2ca167703d5c7d7a99e4f824fd0b",
                       "user_id": "54439078",
                       "extended": "1",
                       "fields": "photo_100,name,activity",
                       "v": "5.124"]
         AF.request(requestURL, method: .get, parameters: params).validate()
             .responseDecodable(of: CommonResponse<GroupVK>.self) { response in
-                dump(response)
+                //dump(response)
                 guard let resp = response.value else { return }
                 
                 
                 self.groups = resp.response.items
-                print(self.groups)
+                //print(self.groups)
                 
                 self.viewController?.reload()
                 

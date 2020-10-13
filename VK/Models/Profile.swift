@@ -10,14 +10,14 @@ import Foundation
 
 struct Profile: Codable {
     
-    var id: Int?
+    var id: Int
     let firstName: String
     let lastName: String
     var fullname: String { return firstName + " " + lastName }
     var city: City?
     var about: String?
     var counters: Counters?
-    var domain: String?
+    var domain: String
     var avatarURL: String?
 
     
@@ -34,7 +34,7 @@ struct Profile: Codable {
     }
     
     init() {
-        
+        id = 0
         firstName = ""
         lastName = ""
         city = nil
@@ -50,7 +50,7 @@ struct Profile: Codable {
 struct Counters: Codable {
     
     var friends: Int
-    var followers: Int
+    var followers: Int?
     var photos: Int
     
     
@@ -60,6 +60,12 @@ struct Counters: Codable {
         case followers
         case photos
         
+    }
+    
+    init() {
+        followers = nil
+        friends = 0
+        photos = 0
     }
     
 

@@ -15,7 +15,7 @@ struct Friend: Codable {
     var fullname: String { return firstName + " " + lastName }
     let isClosed, canAccessClosed: Bool?
     let photo100: String
-    let online: Int
+//    let online: Int
     let deactivated: String?
     var city: City?
 
@@ -26,7 +26,7 @@ struct Friend: Codable {
         case isClosed = "is_closed"
         case canAccessClosed = "can_access_closed"
         case photo100 = "photo_100"
-        case online
+//        case online
         case deactivated
         case city
     }
