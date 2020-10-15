@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+
 class FriendsPresenter {
     
     weak var viewController: FriendsViewController?
@@ -36,11 +37,11 @@ class FriendsPresenter {
                       "order": "hints",
                       "v": "5.124"]
         AF.request(requestURL, method: .post, parameters: params).validate()
-            .responseDecodable(of: CommonResponse<Friend>.self) { response in
+            .responseDecodable(of: CommonResponse<Friend>.self) { [weak self] response in
                 guard let resp = response.value else { return }
         
-                self.friend = resp.response.items
-                self.viewController?.reload()
+                self?.friend = resp.response.items
+                self?.viewController?.reload()
                 
         }
     }

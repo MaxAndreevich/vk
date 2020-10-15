@@ -14,7 +14,7 @@ struct SessionManager {
     private init() {}
     
     var userId = 54439078
-    var token = "ea0bc2354ad259307eca162172b462a496382d1dbcdc55544ad508432eaaa4a1648b9fce31e7e9d1dfade"
+    var token = "d35620c7b09c59aacac3ad7c334890fdbee92133a3f1334aa445fb5e15b684622ca9adb6f084398ded113"
     var version = "5.124"
     
 }

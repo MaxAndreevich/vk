@@ -79,4 +79,14 @@ extension ProfilesPresenter {
     }
 }
 
+extension ProfilesPresenter {
+    
+    
+}
+
+//extension ProfilesPresenter {
+//    
+//    func openText
+//}
+
 

@@ -38,7 +38,7 @@ class MessangesViewController: UIViewController {
         tableView.dataSource = self
         selectMessanges.setTitle("Messanges", for: .normal)
         selectMessanges.setTitleColor(.black, for: .normal)
-        addMessanges.setImage(.add, for: .normal)
+        addMessanges.setImage(.actions, for: .normal)
         setUpView()
         
     }

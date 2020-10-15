@@ -13,7 +13,8 @@
 		0C045E0D2511665E00531FB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C045E0C2511665E00531FB1 /* Assets.xcassets */; };
 		0C045E102511665E00531FB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C045E0E2511665E00531FB1 /* LaunchScreen.storyboard */; };
 		0C3F8E0425385DC400F33E7B /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F8E0325385DC400F33E7B /* FullScreenViewController.swift */; };
-		0C49A2A625164131004B0877 /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49A2A525164131004B0877 /* New.swift */; };
+		0C3F8E0925387CAB00F33E7B /* AddNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F8E0825387CAB00F33E7B /* AddNewViewController.swift */; };
+		0C49A2A625164131004B0877 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C49A2A525164131004B0877 /* News.swift */; };
 		0C4EC9032513C54D00A92031 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EC9022513C54D00A92031 /* GroupsViewController.swift */; };
 		0C4EC9052513C5DA00A92031 /* MessangesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EC9042513C5DA00A92031 /* MessangesViewController.swift */; };
 		0C4EC9072513C63C00A92031 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4EC9062513C63C00A92031 /* FriendsViewController.swift */; };
@@ -36,6 +37,8 @@
 		0CD98A042534FC3D00530238 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD98A032534FC3D00530238 /* Photo.swift */; };
 		0CD98A06253610A300530238 /* Responses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD98A05253610A300530238 /* Responses.swift */; };
 		0CD98A08253610D300530238 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD98A07253610D300530238 /* SessionData.swift */; };
+		0CEE8AF0253899D800064793 /* AddNewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE8AEF253899D800064793 /* AddNewPresenter.swift */; };
+		0CEE8AF225389C5B00064793 /* MyNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEE8AF125389C5B00064793 /* MyNew.swift */; };
 		CE499E598754BC27DD5988AA /* Pods_VK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB91C7E79D8F6C2626FAACE /* Pods_VK.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +51,8 @@
 		0C045E0F2511665E00531FB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0C045E112511665E00531FB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C3F8E0325385DC400F33E7B /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
-		0C49A2A525164131004B0877 /* New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
+		0C3F8E0825387CAB00F33E7B /* AddNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewViewController.swift; sourceTree = "<group>"; };
+		0C49A2A525164131004B0877 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		0C4EC9022513C54D00A92031 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
 		0C4EC9042513C5DA00A92031 /* MessangesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangesViewController.swift; sourceTree = "<group>"; };
 		0C4EC9062513C63C00A92031 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 		0CD98A032534FC3D00530238 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		0CD98A05253610A300530238 /* Responses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Responses.swift; path = VK/Models/Responses.swift; sourceTree = SOURCE_ROOT; };
 		0CD98A07253610D300530238 /* SessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SessionData.swift; path = VK/Models/SessionData.swift; sourceTree = SOURCE_ROOT; };
+		0CEE8AEF253899D800064793 /* AddNewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPresenter.swift; sourceTree = "<group>"; };
+		0CEE8AF125389C5B00064793 /* MyNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNew.swift; sourceTree = "<group>"; };
 		8836BABC7ED22A24F2996311 /* Pods-VK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VK.release.xcconfig"; path = "Target Support Files/Pods-VK/Pods-VK.release.xcconfig"; sourceTree = "<group>"; };
 		D515359D6598CEC2672B4AFB /* Pods-VK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VK.debug.xcconfig"; path = "Target Support Files/Pods-VK/Pods-VK.debug.xcconfig"; sourceTree = "<group>"; };
 		EAB91C7E79D8F6C2626FAACE /* Pods_VK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,9 +122,19 @@
 				0C4EC90D251504C700A92031 /* Application */,
 				0C4EC90C251504BA00A92031 /* Network */,
 				0C4EC90B251504B100A92031 /* Models */,
+				0C3F8E0725387C2500F33E7B /* AddNew */,
 				0C4EC90A2515047600A92031 /* Module */,
 			);
 			path = VK;
+			sourceTree = "<group>";
+		};
+		0C3F8E0725387C2500F33E7B /* AddNew */ = {
+			isa = PBXGroup;
+			children = (
+				0C3F8E0825387CAB00F33E7B /* AddNewViewController.swift */,
+				0CEE8AEF253899D800064793 /* AddNewPresenter.swift */,
+			);
+			path = AddNew;
 			sourceTree = "<group>";
 		};
 		0C4EC8FD2513C45A00A92031 /* News */ = {
@@ -183,12 +199,13 @@
 		0C4EC90B251504B100A92031 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0C49A2A525164131004B0877 /* New.swift */,
+				0C49A2A525164131004B0877 /* News.swift */,
 				0CB999C82519202F00BBEA52 /* GroupVK.swift */,
 				0CB999CE251B577600BBEA52 /* Messange.swift */,
 				0C9C1DC8251B9E5A0081A4C8 /* Friend.swift */,
 				0C7C1C4B251CCCE400189ECE /* Profile.swift */,
 				0CD98A032534FC3D00530238 /* Photo.swift */,
+				0CEE8AF125389C5B00064793 /* MyNew.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -399,10 +416,13 @@
 				0CD98A08253610D300530238 /* SessionData.swift in Sources */,
 				0CD98A06253610A300530238 /* Responses.swift in Sources */,
 				0C7C1C4E251CCCFC00189ECE /* ProfilesPresenter.swift in Sources */,
-				0C49A2A625164131004B0877 /* New.swift in Sources */,
+				0C49A2A625164131004B0877 /* News.swift in Sources */,
 				0CB999D1251B579100BBEA52 /* MessangesPresenter.swift in Sources */,
+				0CEE8AF0253899D800064793 /* AddNewPresenter.swift in Sources */,
+				0CEE8AF225389C5B00064793 /* MyNew.swift in Sources */,
 				0CD98A022534EE4800530238 /* PhotoCell.swift in Sources */,
 				0CB999C92519202F00BBEA52 /* GroupVK.swift in Sources */,
+				0C3F8E0925387CAB00F33E7B /* AddNewViewController.swift in Sources */,
 				0C4EC9862516309400A92031 /* NewsCell.swift in Sources */,
 				0C9C1DC9251B9E5A0081A4C8 /* Friend.swift in Sources */,
 				0C045E042511665A00531FB1 /* AppDelegate.swift in Sources */,
@@ -552,6 +572,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C7M7GJ69Z7;
 				INFOPLIST_FILE = VK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -571,6 +592,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C7M7GJ69Z7;
 				INFOPLIST_FILE = VK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
