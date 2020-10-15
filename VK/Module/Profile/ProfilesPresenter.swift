@@ -14,21 +14,24 @@ class ProfilesPresenter {
     weak var viewController: ProfileViewController?
     
     var id: Int
-    
     var photos: [String] = []
     
     init(id: Int?) {
-        self.id = id ?? 54439078
+        self.id = id ?? SessionManager.shared.userId
     }
     
     var profile: Profile?
     
+    func selectViewData(at indexPath: IndexPath) {
+        
+        showPhoto(photo: photos)
+    }
 
     func setPhoto() {
 
         let vkURL = "https://api.vk.com/method/"
         let requestURL = vkURL + "photos.getAll"
-        let params = ["access_token": "1d8eade1256b2fd7935d8bf47167c1b7da78baf50189c0bfd3a6d94d8033b0ea750e24656dda0f7408c51",
+        let params = ["access_token": SessionManager.shared.token,
                       "owner_id": "\(id)",
                         "extended": "1",
                         "v": "5.124"]
@@ -41,19 +44,16 @@ class ProfilesPresenter {
                                 self.photos.append($0.url)
                             }
                         }
-                        self.viewController?.collectionView.reloadData()
-
-
+                        self.viewController?.reload()
                 }
-
     }
     
-    func test() {
+    func getDataForProfile() {
         
         
         let vkURL = "https://api.vk.com/method/"
         let requestURL = vkURL + "users.get"
-        let params = ["access_token": "1d8eade1256b2fd7935d8bf47167c1b7da78baf50189c0bfd3a6d94d8033b0ea750e24656dda0f7408c51",
+        let params = ["access_token": SessionManager.shared.token,
                       "user_id": "\(id)",
                       "fields": "photo_100,city,counters,domain",
                       "v": "5.52"]
@@ -64,14 +64,19 @@ class ProfilesPresenter {
 //                dump(response)
                 self.profile = resp.response.first
                 self.viewController?.setUp(profileModel: self.profile ?? Profile())
-                
-                
         }
     }
+}
+
+extension ProfilesPresenter {
     
+    func showPhoto(photo: [String]) {
+        
+        let fullScreenViewController = FullScreenViewController(photo: photos)
+        self.viewController?.navigationController?.present(fullScreenViewController, animated: true, completion: nil )
+//        profilePresenter.viewController = profileViewController
+        
+    }
 }
 
 
-struct SimpleResponse<T: Decodable>: Decodable {
-    var response: T
-}

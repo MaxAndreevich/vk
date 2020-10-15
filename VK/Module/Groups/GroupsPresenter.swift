@@ -23,13 +23,13 @@ class GroupsPresenter {
         return groups[indexPath.row]
     }
     
-    func test() {
+    func getDataForGroups() {
         
         
         let vkURL = "https://api.vk.com/method/"
         let requestURL = vkURL + "groups.get"
-        let params = ["access_token": "1525d9945afe34a35ca137f6fd13d76a4d636e4698d89474d6c0f515c2ca167703d5c7d7a99e4f824fd0b",
-                      "user_id": "54439078",
+        let params = ["access_token": SessionManager.shared.token,
+                      "user_id": "\(SessionManager.shared.userId)",
                       "extended": "1",
                       "fields": "photo_100,name,activity",
                       "v": "5.124"]
