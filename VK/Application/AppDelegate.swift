@@ -8,7 +8,7 @@
 
 import UIKit
 
-//https://oauth.vk.com/authorize?client_id=7598031&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.52
+//https://oauth.vk.com/authorize?client_id=7598031&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=4&response_type=token&v=5.52
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

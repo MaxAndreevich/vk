@@ -14,6 +14,15 @@ import Kingfisher
 class ProfileViewController: UIViewController {
     
     var scrollView = UIScrollView()
+    
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
+        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "cellId")
+        collectionView.backgroundColor = .white
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
+    }()
 
     let text = UILabel()
     
@@ -26,7 +35,12 @@ class ProfileViewController: UIViewController {
     var userNamelabel = UILabel()
     var statusLabel = UILabel()
     var thoughtButton = UIButton()
-    var editButton = UIButton()
+    var editButton: UIButton = {
+        let view = UIButton()
+        view.layer.cornerRadius = 6
+        view.clipsToBounds = true
+        return view
+    }()
     
     var historyButton = UIButton()
     var recordButton = UIButton()
@@ -40,9 +54,21 @@ class ProfileViewController: UIViewController {
     var placeLearnLabel = UILabel()
     var detailInfoButton = UIButton()
     
-    
-    
     var presenter: ProfilesPresenter?
+    private let width = UIScreen.main.bounds.width
+    private let cellWidthHeightConstant: CGFloat = (UIScreen.main.bounds.width - 30) / 3
+    
+    var avatarImageForWall: UIImageView = {
+        let view = UIImageView()
+        view.layer.cornerRadius = 15
+        view.clipsToBounds = true
+        return view
+    }()
+    
+    var anythingNewButton = UIButton()
+    var imageButton = UIButton()
+    
+    
     init(presenter: ProfilesPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -55,42 +81,22 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-
-        scrollView.backgroundColor = .brown
+        applyStyle()
         scrollView.delegate = self
-//        let text = UILabel(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-//        text.text = "id54439078"
-      
-//        userNamelabel.text = "Maxim "
-//        avatarImage.kf.setImage(with: URL(string: "https://m.thepeoplesdialogue.org.za/Assets/images/about-herman.png"))
-//        thoughtButton.setTitle("Say about self", for: .normal)
-        thoughtButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
-//        statusLabel.text = "online"
-        editButton.setTitle("Редактировать профиль", for: .normal)
-        editButton.backgroundColor = .gray
-        
-        historyButton.setImage(UIImage(named: "history"), for: .normal)
-        recordButton.setImage(UIImage(named: "writing"), for: .normal)
-        photoButton.setImage(UIImage(named: "photo"), for: .normal)
-        clipButton.setImage(UIImage(named: "video"), for: .normal)
-//        countFriendsButton.setTitle("Друзей: 342 друга", for: .normal)
-//        countSubscribersButton.setTitle("Подписчиков: 443 ", for: .normal)
-//        cityLabel.text = "Город: Moscow"
-//        placeWorkLabel.text = "Указать место работы"
-//        placeLearnLabel.text = "Указать место учебы"
-//        detailInfoButton.setTitle("Подробная информация", for: .normal)
-        
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter?.test()
-        
+        presenter?.getDataForProfile()
+        presenter?.setPhoto()
     }
     
+    func reload() {
+        self.collectionView.reloadData()
+    }
     
     func setUpView() {
+        
         
         let mainStack = UIStackView()
         mainStack.axis = .vertical
@@ -99,6 +105,14 @@ class ProfileViewController: UIViewController {
         view.addSubview(scrollView)
         scrollView.addSubview(mainStack)
         
+        let stackNews = UIStackView()
+        
+        stackNews.addArrangedSubview(avatarImageForWall)
+        stackNews.addArrangedSubview(anythingNewButton)
+        stackNews.addArrangedSubview(imageButton)
+        stackNews.axis = .horizontal
+        stackNews.distribution = .fillProportionally
+        stackNews.spacing = 8
         
         let stackView = UIStackView()
         stackView.addArrangedSubview(historyButton)
@@ -121,8 +135,8 @@ class ProfileViewController: UIViewController {
         mainStack.addSubview(placeWorkLabel)
         mainStack.addSubview(placeLearnLabel)
         mainStack.addSubview(detailInfoButton)
-        
-        
+        mainStack.addSubview(collectionView)
+        mainStack.addSubview(stackNews)
         
         scrollView.easy.layout(Top(),
                                Bottom(),
@@ -176,33 +190,91 @@ class ProfileViewController: UIViewController {
                                     Leading(15))
         
         detailInfoButton.easy.layout(Top(10).to(placeLearnLabel,.bottom),
-                                     Leading(15),
-                                     Bottom())
-
+                                     Leading(15))
         
+        collectionView.easy.layout(Top(15).to(detailInfoButton,.bottom),
+                                   Leading(10),
+                                   Trailing(10),
+                                   Height(cellWidthHeightConstant * 2 + 10),
+                                   Width(width - 30))
+        
+        
+        stackNews.easy.layout(Top(10).to(collectionView,.bottom),
+                              Trailing(15),
+                              Leading(15),
+                              Bottom(),
+                              Height(30))
+        
+        stackNews.backgroundColor = .black
+        
+        avatarImageForWall.easy.layout(Height(20),
+                                       Width(30))
+        
+        imageButton.easy.layout(Width(30))
+    }
+    
+    func applyStyle() {
+        
+        thoughtButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+        editButton.setTitle("Редактировать профиль", for: .normal)
+        editButton.backgroundColor = UIColor(red: 1, green: 0.5, blue: 1, alpha: 0.5)
+        
+        historyButton.setImage(UIImage(named: "history"), for: .normal)
+        recordButton.setImage(UIImage(named: "writing"), for: .normal)
+        photoButton.setImage(UIImage(named: "photo"), for: .normal)
+        clipButton.setImage(UIImage(named: "video"), for: .normal)
+        
+        scrollView.backgroundColor = .white
+        
+        countFriendsButton.setTitleColor(.black, for: .normal)
+        countSubscribersButton.setTitleColor(.black, for: .normal)
+        
+        anythingNewButton.setTitle("Что у вас нового?", for: .normal)
+        anythingNewButton.backgroundColor = .lightGray
+        anythingNewButton.layer.cornerRadius = 5
+    
     }
     
     
     func setUp(profileModel: Profile) {
         
         userNamelabel.text = profileModel.fullname
-        
         cityLabel.text = "Город: \(profileModel.city?.city ?? "")"
-        
-        title = profileModel.domain
-        
+        navigationItem.title = profileModel.domain
         countFriendsButton.setTitle("Друзей: \(profileModel.counters?.friends ?? 0)", for: .normal)
         countSubscribersButton.setTitle("Подписчиков: \(profileModel.counters?.followers ?? 0)", for: .normal)
-        
+        avatarImageForWall.kf.setImage(with: URL(string: profileModel.avatarURL ?? ""))
         avatarImage.kf.setImage(with: URL(string: profileModel.avatarURL ?? ""))
+    }
+    
+    private func collectionViewLayout() -> UICollectionViewLayout {
         
+        let layout = UICollectionViewFlowLayout()
+        let cellWidthHeightConstant: CGFloat = (width - 30) / 3
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 5
+        layout.itemSize = CGSize(width: cellWidthHeightConstant, height: cellWidthHeightConstant)
+        return layout
     }
     
 }
 
-extension ProfileViewController: UIScrollViewDelegate {
+extension ProfileViewController: UIScrollViewDelegate, UICollectionViewDelegate,
+                                UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter?.photos.count ?? 0
+    }
 
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! PhotoCell
+        cell.setUp(url: URL( string: presenter?.photos[indexPath.row] ?? ""))
+        return cell
+    }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        presenter?.selectViewData(at: indexPath)
+    }
 
 }
-
