@@ -43,6 +43,8 @@ class TabBarController: UITabBarController {
 //        profileViewController.presenter = profilePresenter
         let navigationControllerProfile = UINavigationController(rootViewController: profileViewController)
         
+//        let addnewController = AddNewViewController(nibName: nil, bundle: nil)
+//        let navigationControllerAddNew = UINavigationController(rootViewController: addnewController)
         
         
         newsViewController.tabBarItem.image = UIImage(named: "news")

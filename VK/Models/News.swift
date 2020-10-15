@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct New {
+struct News {
     
     let name: String
     let date: String

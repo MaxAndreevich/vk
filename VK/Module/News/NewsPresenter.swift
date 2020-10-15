@@ -13,7 +13,7 @@ class NewsPresenter {
     
     weak var viewController: NewsViewController?
     weak var gp: GroupsPresenter?
-    var news: [New] = [New(name: "Название группы",
+    var news: [News] = [News(name: "Название группы",
                            date: "Время публикации 17:02",
                            text: "Текст публикации \nsdfgfg \ndsfgffd",
                            countLike: 0,
@@ -27,9 +27,9 @@ class NewsPresenter {
         return news.count
     }
     
-    func getModelAtIndex(indexPath: IndexPath) -> New? {
+    func getModelAtIndex(indexPath: IndexPath) -> News? {
         
-        var newModel = New(name: news[indexPath.row].name,
+        var newModel = News(name: news[indexPath.row].name,
                                      date: news[indexPath.row].date,
                                      text: news[indexPath.row].text,
                                      countLike: news[indexPath.row].countLike,

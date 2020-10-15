@@ -138,7 +138,7 @@ class NewsCell: UITableViewCell {
         
     }
     
-    func setUp(newModel: New) {
+    func setUp(newModel: News) {
 
 //        self.viewModel = viewModel
 

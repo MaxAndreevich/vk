@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
     
     var scrollView = UIScrollView()
     
+    var presenter: ProfilesPresenter?
+    
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: "cellId")
@@ -23,8 +25,6 @@ class ProfileViewController: UIViewController {
         collectionView.dataSource = self
         return collectionView
     }()
-
-    let text = UILabel()
     
     var avatarImage: UIImageView = {
         let view = UIImageView()
@@ -32,31 +32,6 @@ class ProfileViewController: UIViewController {
         view.clipsToBounds = true
         return view
     }()
-    var userNamelabel = UILabel()
-    var statusLabel = UILabel()
-    var thoughtButton = UIButton()
-    var editButton: UIButton = {
-        let view = UIButton()
-        view.layer.cornerRadius = 6
-        view.clipsToBounds = true
-        return view
-    }()
-    
-    var historyButton = UIButton()
-    var recordButton = UIButton()
-    var photoButton = UIButton()
-    var clipButton = UIButton()
-    
-    var countFriendsButton = UIButton()
-    var cityLabel = UILabel()
-    var countSubscribersButton = UIButton()
-    var placeWorkLabel = UILabel()
-    var placeLearnLabel = UILabel()
-    var detailInfoButton = UIButton()
-    
-    var presenter: ProfilesPresenter?
-    private let width = UIScreen.main.bounds.width
-    private let cellWidthHeightConstant: CGFloat = (UIScreen.main.bounds.width - 30) / 3
     
     var avatarImageForWall: UIImageView = {
         let view = UIImageView()
@@ -65,9 +40,33 @@ class ProfileViewController: UIViewController {
         return view
     }()
     
+    var editButton: UIButton = {
+        let view = UIButton()
+        view.layer.cornerRadius = 6
+        view.clipsToBounds = true
+        return view
+    }()
+
+    let text = UILabel()
+    var userNamelabel = UILabel()
+    var statusLabel = UILabel()
+    var cityLabel = UILabel()
+    var placeWorkLabel = UILabel()
+    var placeLearnLabel = UILabel()
+    
+    var thoughtButton = UIButton()
+    var historyButton = UIButton()
+    var recordButton = UIButton()
+    var photoButton = UIButton()
+    var clipButton = UIButton()
+    var countFriendsButton = UIButton()
+    var countSubscribersButton = UIButton()
+    var detailInfoButton = UIButton()
     var anythingNewButton = UIButton()
     var imageButton = UIButton()
     
+    private let width = UIScreen.main.bounds.width
+    private let cellWidthHeightConstant: CGFloat = (UIScreen.main.bounds.width - 30) / 3
     
     init(presenter: ProfilesPresenter) {
         self.presenter = presenter
@@ -83,6 +82,7 @@ class ProfileViewController: UIViewController {
         setUpView()
         applyStyle()
         scrollView.delegate = self
+        anythingNewButton.addTarget(self, action: #selector(showNew), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +96,6 @@ class ProfileViewController: UIViewController {
     }
     
     func setUpView() {
-        
         
         let mainStack = UIStackView()
         mainStack.axis = .vertical
@@ -121,7 +120,6 @@ class ProfileViewController: UIViewController {
         stackView.addArrangedSubview(clipButton)
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
-        
         
         mainStack.addSubview(avatarImage)
         mainStack.addSubview(userNamelabel)
@@ -183,34 +181,31 @@ class ProfileViewController: UIViewController {
         countSubscribersButton.easy.layout(Top(10).to(cityLabel,.bottom),
                                            Leading(15))
         
-        placeWorkLabel.easy.layout(Top(10).to(countSubscribersButton,.bottom),
-                                   Leading(15))
-        
-        placeLearnLabel.easy.layout(Top(10).to(placeWorkLabel,.bottom),
-                                    Leading(15))
-        
-        detailInfoButton.easy.layout(Top(10).to(placeLearnLabel,.bottom),
-                                     Leading(15))
-        
-        collectionView.easy.layout(Top(15).to(detailInfoButton,.bottom),
-                                   Leading(10),
-                                   Trailing(10),
-                                   Height(cellWidthHeightConstant * 2 + 10),
-                                   Width(width - 30))
-        
-        
-        stackNews.easy.layout(Top(10).to(collectionView,.bottom),
+        stackNews.easy.layout(Top(10).to(countSubscribersButton,.bottom),
                               Trailing(15),
                               Leading(15),
-                              Bottom(),
                               Height(30))
-        
-        stackNews.backgroundColor = .black
-        
+                
         avatarImageForWall.easy.layout(Height(20),
                                        Width(30))
         
         imageButton.easy.layout(Width(30))
+        
+//        placeWorkLabel.easy.layout(Top(10).to(countSubscribersButton,.bottom),
+//                                   Leading(15))
+//
+//        placeLearnLabel.easy.layout(Top(10).to(placeWorkLabel,.bottom),
+//                                    Leading(15))
+//
+//        detailInfoButton.easy.layout(Top(10).to(placeLearnLabel,.bottom),
+//                                     Leading(15))
+        
+        collectionView.easy.layout(Top(15).to(stackNews,.bottom),
+                                   Leading(10),
+                                   Trailing(10),
+                                   Height(cellWidthHeightConstant * 2 + 10),
+                                   Width(width - 30),
+                                   Bottom())
     }
     
     func applyStyle() {
@@ -235,6 +230,14 @@ class ProfileViewController: UIViewController {
     
     }
     
+    @objc func showNew() {
+        let addNewPresenter = AddNewPresenter()
+        let addNewViewController = AddNewViewController(presenter: addNewPresenter)
+        addNewPresenter.viewController = addNewViewController
+        let nc = UINavigationController(rootViewController: addNewViewController)
+        nc.modalPresentationStyle = .overFullScreen
+        present(nc, animated: true, completion: nil)
+     }
     
     func setUp(profileModel: Profile) {
         
