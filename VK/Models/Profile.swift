@@ -17,9 +17,8 @@ struct Profile: Codable {
     var city: City?
     var about: String?
     var counters: Counters?
-    var domain: String
+    var domain: String?
     var avatarURL: String?
-
     
     enum CodingKeys: String, CodingKey {
         case id

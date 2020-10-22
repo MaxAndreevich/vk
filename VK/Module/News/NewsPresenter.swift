@@ -7,39 +7,51 @@
 //
 
 import Foundation
+import Alamofire
 
 class NewsPresenter {
     
     
     weak var viewController: NewsViewController?
     weak var gp: GroupsPresenter?
-    var news: [News] = [News(name: "Название группы",
-                           date: "Время публикации 17:02",
-                           text: "Текст публикации \nsdfgfg \ndsfgffd",
-                           countLike: 0,
-                           countComment: 0,
-                           countForward: 0,
-                           avatarURL: URL(string: "https://m.thepeoplesdialogue.org.za/Assets/images/about-herman.png"),
-                           newURL: URL(string:"https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-1.2.1&w=1000&q=80"),
-                           isLiked: false)]
+    var news: [(News, Profile)] = []
     
     func getNumberOfRowsInSection(section: Int) -> Int {
         return news.count
     }
     
-    func getModelAtIndex(indexPath: IndexPath) -> News? {
-        
-        var newModel = News(name: news[indexPath.row].name,
-                                     date: news[indexPath.row].date,
-                                     text: news[indexPath.row].text,
-                                     countLike: news[indexPath.row].countLike,
-                                     countComment: news[indexPath.row].countComment,
-                                     countForward: news[indexPath.row].countForward,
-                                     avatarURL: news[indexPath.row].avatarURL,
-                                     newURL: news[indexPath.row].newURL,
-                                     isLiked: news[indexPath.row].isLiked)
+    func getModelAtIndex(indexPath: IndexPath) -> (News, Profile)? {
     
-        return newModel
+        return news[indexPath.row]
+        
+    }
+    
+    func getDataForNewsfeed() {
+        
+        let vkURL = "https://api.vk.com/method/"
+        let requestURL = vkURL + "newsfeed.get"
+        let params = ["access_token": SessionManager.shared.token,
+                      "extended": "1",
+                      "filters": "photo,post",
+                      "v": "5.53"]
+        AF.request(requestURL, method: .post, parameters: params).validate()
+            .responseDecodable(of: CommonResponse<News>.self) { [weak self] response in
+                
+                guard let resp = response.value else { return }
+                
+                for i in 0..<resp.response.items.count {
+                    let new = resp.response.items[i]
+                    
+                    resp.response.profiles?.forEach {
+                        if new.sourceId == $0.id {
+                            self?.news.append((new, $0))
+                        }
+                    }
+                }
+                
+                self?.viewController?.reload()
+                
+        }
         
     }
     

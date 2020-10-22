@@ -39,7 +39,7 @@ class AddNewViewController: UIViewController {
     
     func setUp() {
         navigationItem.title = "Maxim"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismiss))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(navigateBack))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPost))
         textView.font = UIFont(name: "Arial", size: 18)
     }
@@ -68,7 +68,7 @@ class AddNewViewController: UIViewController {
 
     }
     
-    @objc func dismiss() {
+    @objc func navigateBack() {
         dismiss(animated: true, completion: nil)
     }
 }

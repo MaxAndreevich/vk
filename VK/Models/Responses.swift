@@ -13,8 +13,9 @@ struct CommonResponse<T: Decodable>: Decodable {
 }
 
 struct ResponseData<T: Decodable>: Decodable {
-    var count: Int
+    var count: Int?
     var items: [T]
+    var profiles: [Profile]?
 }
 
 struct SimpleResponse<T: Decodable>: Decodable {

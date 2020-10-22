@@ -27,7 +27,6 @@ class AddNewPresenter {
             
             guard let resp = response.value else { return }
             self.post = resp.response
-            dump(self.post)
             self.checkPostId(id: self.post?.postid)
         }
         
@@ -35,7 +34,7 @@ class AddNewPresenter {
     
     func checkPostId(id: Int?) {
         if id != nil {
-            self.viewController?.dismiss()
+            self.viewController?.navigateBack()
         } else {
             
         }

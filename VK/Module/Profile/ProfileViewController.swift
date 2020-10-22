@@ -14,8 +14,11 @@ import Kingfisher
 class ProfileViewController: UIViewController {
     
     var scrollView = UIScrollView()
-    
+    var tableView = UITableView()
+    var tableHeight = NSLayoutConstraint()
     var presenter: ProfilesPresenter?
+    let mainStack = UIStackView()
+    let stackNews = UIStackView()
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
@@ -62,11 +65,20 @@ class ProfileViewController: UIViewController {
     var countFriendsButton = UIButton()
     var countSubscribersButton = UIButton()
     var detailInfoButton = UIButton()
-    var anythingNewButton = UIButton()
+    var anythingNewButton: UIButton = {
+        let view = UIButton()
+        view.layer.cornerRadius = 6
+        view.clipsToBounds = true
+        return view
+    }()
     var imageButton = UIButton()
     
     private let width = UIScreen.main.bounds.width
     private let cellWidthHeightConstant: CGFloat = (UIScreen.main.bounds.width - 30) / 3
+    
+//    let screenHeight = UIScreen.main.bounds.height
+//    let scrollViewContentHeight = 1200 as CGFloat
+//    let scrollViewContentWidth = 1200 as CGFloat
     
     init(presenter: ProfilesPresenter) {
         self.presenter = presenter
@@ -81,30 +93,63 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setUpView()
         applyStyle()
+        
         scrollView.delegate = self
         anythingNewButton.addTarget(self, action: #selector(showNew), for: .touchUpInside)
+        tableView.register(NewsCell.self, forCellReuseIdentifier: "cellId")
+        tableView.delegate = self
+        tableView.dataSource = self
+        scrollView.bounces = false
+        tableView.bounces = false
+        tableView.showsVerticalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 600
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.getDataForProfile()
         presenter?.setPhoto()
+        presenter?.getDataForWall()
+        
     }
     
-    func reload() {
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let colorleft =  UIColor(red: 0, green: 0, blue: 255, alpha: 1.0).cgColor
+        let colorRight = UIColor(red: 0, green: 255, blue: 255, alpha: 1.0).cgColor
+                    
+        let gradientEditButton = CAGradientLayer()
+        gradientEditButton.colors = [colorleft, colorRight]
+        gradientEditButton.locations = [0.0 , 1.0]
+        gradientEditButton.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradientEditButton.endPoint = CGPoint(x: self.editButton.frame.size.width / 2, y: 1.0)
+        gradientEditButton.frame = CGRect(x: 0.0, y: 0.0, width: self.editButton.frame.size.width,
+                                          height: self.editButton.frame.size.height)
+        self.editButton.layer.insertSublayer(gradientEditButton, at:0)
+
+    }
+    
+    func reloadCollectionView() {
         self.collectionView.reloadData()
     }
     
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+    
     func setUpView() {
-        
-        let mainStack = UIStackView()
+
         mainStack.axis = .vertical
         mainStack.alignment = .center
         
         view.addSubview(scrollView)
+//        view.addSubview(tableView)
         scrollView.addSubview(mainStack)
+        scrollView.addSubview(tableView)
         
-        let stackNews = UIStackView()
+        
         
         stackNews.addArrangedSubview(avatarImageForWall)
         stackNews.addArrangedSubview(anythingNewButton)
@@ -135,6 +180,7 @@ class ProfileViewController: UIViewController {
         mainStack.addSubview(detailInfoButton)
         mainStack.addSubview(collectionView)
         mainStack.addSubview(stackNews)
+//        mainStack.addSubview(tableView)
         
         scrollView.easy.layout(Top(),
                                Bottom(),
@@ -145,7 +191,6 @@ class ProfileViewController: UIViewController {
         mainStack.easy.layout(Top(),
                               Trailing(),
                               Leading(),
-                              Bottom(),
                               Width(UIScreen.main.bounds.width))
         
         avatarImage.easy.layout(Top(20),
@@ -181,39 +226,43 @@ class ProfileViewController: UIViewController {
         countSubscribersButton.easy.layout(Top(10).to(cityLabel,.bottom),
                                            Leading(15))
         
-        stackNews.easy.layout(Top(10).to(countSubscribersButton,.bottom),
-                              Trailing(15),
-                              Leading(15),
-                              Height(30))
-                
-        avatarImageForWall.easy.layout(Height(20),
-                                       Width(30))
-        
-        imageButton.easy.layout(Width(30))
-        
-//        placeWorkLabel.easy.layout(Top(10).to(countSubscribersButton,.bottom),
-//                                   Leading(15))
-//
-//        placeLearnLabel.easy.layout(Top(10).to(placeWorkLabel,.bottom),
-//                                    Leading(15))
-//
-//        detailInfoButton.easy.layout(Top(10).to(placeLearnLabel,.bottom),
-//                                     Leading(15))
-        
-        collectionView.easy.layout(Top(15).to(stackNews,.bottom),
+        collectionView.easy.layout(Top(15).to(countSubscribersButton,.bottom),
                                    Leading(10),
                                    Trailing(10),
                                    Height(cellWidthHeightConstant * 2 + 10),
-                                   Width(width - 30),
-                                   Bottom())
+                                   Width(width - 30))
+        
+        if presenter?.isMy ?? false {
+            
+            avatarImageForWall.easy.layout(Height(20),
+                                           Width(30))
+            
+            imageButton.easy.layout(Width(30))
+            
+            stackNews.easy.layout(Top(10).to(collectionView,.bottom),
+                                  Trailing(15),
+                                  Leading(15),
+                                  Height(30),
+                                  Bottom())
+        } else {
+            collectionView.easy.layout(
+            Bottom())
+            
+        }
+ 
+        tableView.easy.layout(Top().to(mainStack,.bottom),
+                              Leading(),
+                              Trailing(),
+                              Bottom(),
+                              Height(UIScreen.main.bounds.height))
+        
     }
     
     func applyStyle() {
         
         thoughtButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         editButton.setTitle("Редактировать профиль", for: .normal)
-        editButton.backgroundColor = UIColor(red: 1, green: 0.5, blue: 1, alpha: 0.5)
-        
+    
         historyButton.setImage(UIImage(named: "history"), for: .normal)
         recordButton.setImage(UIImage(named: "writing"), for: .normal)
         photoButton.setImage(UIImage(named: "photo"), for: .normal)
@@ -226,8 +275,9 @@ class ProfileViewController: UIViewController {
         
         anythingNewButton.setTitle("Что у вас нового?", for: .normal)
         anythingNewButton.backgroundColor = .lightGray
-        anythingNewButton.layer.cornerRadius = 5
-    
+        
+        tableHeight.constant = self.view.frame.height-64
+
     }
     
     @objc func showNew() {
@@ -239,7 +289,7 @@ class ProfileViewController: UIViewController {
         present(nc, animated: true, completion: nil)
      }
     
-    func setUp(profileModel: Profile) {
+    func setUpProfile(profileModel: Profile) {
         
         userNamelabel.text = profileModel.fullname
         cityLabel.text = "Город: \(profileModel.city?.city ?? "")"
@@ -248,8 +298,14 @@ class ProfileViewController: UIViewController {
         countSubscribersButton.setTitle("Подписчиков: \(profileModel.counters?.followers ?? 0)", for: .normal)
         avatarImageForWall.kf.setImage(with: URL(string: profileModel.avatarURL ?? ""))
         avatarImage.kf.setImage(with: URL(string: profileModel.avatarURL ?? ""))
+ 
     }
     
+    
+    
+}
+
+extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     private func collectionViewLayout() -> UICollectionViewLayout {
         
         let layout = UICollectionViewFlowLayout()
@@ -260,10 +316,6 @@ class ProfileViewController: UIViewController {
         return layout
     }
     
-}
-
-extension ProfileViewController: UIScrollViewDelegate, UICollectionViewDelegate,
-                                UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter?.photos.count ?? 0
     }
@@ -280,4 +332,43 @@ extension ProfileViewController: UIScrollViewDelegate, UICollectionViewDelegate,
         presenter?.selectViewData(at: indexPath)
     }
 
+}
+
+extension ProfileViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == self.scrollView {
+            tableView.isScrollEnabled = (self.scrollView.contentOffset.y >= mainStack.frame.height - 64)
+        }
+        
+        if scrollView == self.tableView {
+            self.tableView.isScrollEnabled = (tableView.contentOffset.y > 0)
+        }
+    }
+
+}
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter?.getNumberOfRowsInSection(section: section) ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as? NewsCell,
+            let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell()
+            
+        }
+        cell.setUp(newModel: model, index: indexPath.row)
+        cell.onTapLike = { [weak self] isLiked in
+            
+            if isLiked {
+                self?.presenter?.post[indexPath.row].0.likes?.count += 1
+            } else {
+                self?.presenter?.post[indexPath.row].0.likes?.count -= 1
+            }
+        }
+        return cell
+    }
+    
 }

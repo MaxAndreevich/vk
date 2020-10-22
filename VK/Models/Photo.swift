@@ -16,5 +16,7 @@ struct Photo: Codable {
 struct Sizes: Codable {
     
     var url: String
+    
 }
+
 

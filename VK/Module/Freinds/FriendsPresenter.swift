@@ -55,9 +55,13 @@ extension FriendsPresenter {
         let profilePresenter = ProfilesPresenter(id: id)
         let profileViewController = ProfileViewController(presenter: profilePresenter)
         profilePresenter.viewController = profileViewController
+//        profileViewController.stackNews.removeFromSuperview()
         
         self.viewController?.navigationController?.pushViewController(profileViewController, animated: true)
+        
     }
+    
+    
 }
 
     

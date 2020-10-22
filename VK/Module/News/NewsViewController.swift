@@ -39,6 +39,7 @@ class NewsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        presenter?.getDataForNewsfeed()
         print("viewWillAppear")
     }
     
@@ -46,6 +47,10 @@ class NewsViewController: UIViewController {
            super.viewDidAppear(animated)
            print("viewDidAppear")
        }
+    
+    func reload() {
+        tableView.reloadData()
+    }
 
 }
 
@@ -57,17 +62,17 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath) as? NewsCell,
-        let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell()}
-            
-        cell.setUp(newModel: model)
+            let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell()}
+        
+        cell.setUp(newModel: model, index: 0)
         cell.onTapLike = { [weak self] isLiked in
-            self?.presenter?.news[indexPath.row].isLiked = isLiked
+            
             if isLiked {
-                self?.presenter?.news[indexPath.row].countLike += 1
+                self?.presenter?.news[indexPath.row].0.likes?.count += 1
             } else {
-                self?.presenter?.news[indexPath.row].countLike -= 1
+                self?.presenter?.news[indexPath.row].0.likes?.count -= 1
             }
-           
+            
         }
         return cell
     }
