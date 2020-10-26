@@ -51,8 +51,6 @@ struct News: Decodable {
         reposts = try container.decodeIfPresent(Reposts.self, forKey: .reposts) ?? Reposts()
         views = try container.decodeIfPresent(Views.self, forKey: .views) ?? Views()
         sourceId = try container.decodeIfPresent(Int.self, forKey: .sourceId)
-        
-        
     }
     
     struct Photo: Decodable{

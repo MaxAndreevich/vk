@@ -12,25 +12,22 @@ import EasyPeasy
 
 class FriendsViewController: UIViewController {
     
-    var presenter: FriendsPresenter?
-    var searchFriends = UISearchBar()
-    var tableView = UITableView()
+    // MARK: private variables
+    private var presenter: FriendsPresenter?
+    private var searchFriends = UISearchBar()
+    private var tableView = UITableView()
     
-    
-//    var filtered: [Friend]
-    
-    
+    // MARK: init
     init(presenter: FriendsPresenter) {
         self.presenter = presenter
-//        filtered = presenter.friend
         super.init(nibName: nil, bundle: nil)
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -41,17 +38,18 @@ class FriendsViewController: UIViewController {
         searchFriends.placeholder = "Поиск"
     }
     
-    
+    // MARK: viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.getDataForFriends()
-        
     }
     
+    // MARK: reload
     func reload() {
         tableView.reloadData()
     }
     
+    // MARK: setUpView
     func setUpView() {
         
         view.addSubview(searchFriends)
@@ -66,11 +64,10 @@ class FriendsViewController: UIViewController {
                               Leading(),
                               Trailing(),
                               Bottom())
-        
     }
-    
 }
 
+// MARK: extension
 extension FriendsViewController: UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,23 +85,4 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource, UIS
         
         presenter?.selectViewData(at: indexPath)
     }
-    
-
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        
-//        self.filtered = searchText.isEmpty ? presenter?.friend as! [Friend]: presenter?.friend.filter({ (model) -> Bool in
-//            return model.fullname.range(of: searchText, options: .caseInsensitive, range: nil , locale: nil) != nil
-//        }) as! [Friend]
-//        
-//        self.tableView.reloadData()
-//    }
-//    
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        searchFriends.text = ""
-//        searchFriends.endEditing(true)
-//        
-//        self.filtered = presenter?.friend as! [Friend]
-//    }
-    
-
 }

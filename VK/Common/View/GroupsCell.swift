@@ -13,16 +13,18 @@ import Kingfisher
 
 class GroupsCell: UITableViewCell {
  
-    let avatarImage: UIImageView = {
+    // MARK: private variables
+    private let avatarImage: UIImageView = {
         let view = UIImageView()
             view.layer.cornerRadius = 25
             view.clipsToBounds = true
             return view
     }()
     
-    let groupNameLabel = UILabel()
-    let directionLabel = UILabel()
+    private let groupNameLabel = UILabel()
+    private let directionLabel = UILabel()
     
+    // MARK: init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpView()
@@ -34,6 +36,7 @@ class GroupsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: setUpView
     func setUpView() {
         
         addSubview(avatarImage)
@@ -48,15 +51,16 @@ class GroupsCell: UITableViewCell {
         avatarImage.contentMode = .scaleAspectFill
         
         groupNameLabel.easy.layout(Top(5).to(avatarImage,.top),
-                              Leading(5).to(avatarImage,.trailing),
-                              Trailing(15))
+                                   Leading(5).to(avatarImage,.trailing),
+                                   Trailing(15))
         
         directionLabel.easy.layout(Top(2).to(groupNameLabel,.bottom),
-                              Leading(5).to(avatarImage,.trailing),
-                              Trailing(10),
-                              Bottom(10))
-        }
-        
+                                   Leading(5).to(avatarImage,.trailing),
+                                   Trailing(10),
+                                   Bottom(10))
+    }
+    
+    // MARK: setUp
     func setUp(groupModel: GroupVK) {
         
         groupNameLabel.text = groupModel.name
@@ -64,7 +68,5 @@ class GroupsCell: UITableViewCell {
         directionLabel.text = groupModel.activity
 
         avatarImage.kf.setImage(with: URL(string: groupModel.photo100))
-        
     }
-    
 }

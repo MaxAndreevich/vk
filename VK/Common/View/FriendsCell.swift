@@ -7,26 +7,27 @@
 //
 
 import Foundation
-//import UIKit
 import EasyPeasy
 import Kingfisher
 
 class FriendsCell: UITableViewCell {
     
-    let avatarImage: UIImageView = {
+    // MARK: private variables
+    private let avatarImage: UIImageView = {
         let view = UIImageView()
             view.layer.cornerRadius = 25
             view.clipsToBounds = true
             return view
     }()
-    var nameFriendLabel = UILabel()
-    var cityLabel = UILabel()
-    var sendMessange = UIButton()
+    private var nameFriendLabel = UILabel()
+    private var cityLabel = UILabel()
+    private var sendMessangeButton = UIButton()
     
+    // MARK: init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpView()
-        sendMessange.setImage(UIImage(named: "chat"), for: .normal)
+        sendMessangeButton.setImage(UIImage(named: "chat"), for: .normal)
         cityLabel.font = UIFont(name: "Arial", size: 12)
     }
     
@@ -34,12 +35,13 @@ class FriendsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: setUpView
     func setUpView() {
         
         addSubview(avatarImage)
         addSubview(nameFriendLabel)
         addSubview(cityLabel)
-        addSubview(sendMessange)
+        addSubview(sendMessangeButton)
         
         avatarImage.easy.layout(Top(10),
                                 Leading(10),
@@ -54,18 +56,15 @@ class FriendsCell: UITableViewCell {
         cityLabel.easy.layout(Top(5).to(nameFriendLabel,.bottom),
                               Leading(5).to(avatarImage,.trailing))
         
-        sendMessange.easy.layout(CenterY().to(avatarImage,.centerY),
+        sendMessangeButton.easy.layout(CenterY().to(avatarImage,.centerY),
                                  Trailing(10))
-        
     }
     
+    // MARK: setUp
     func setUp(friendModel: Friend) {
         
         nameFriendLabel.text = friendModel.fullname
-
         avatarImage.kf.setImage(with: URL(string: friendModel.photo100))
-        
         cityLabel.text = friendModel.city?.city
-        
     }
 }

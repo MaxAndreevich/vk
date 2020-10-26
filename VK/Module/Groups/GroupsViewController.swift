@@ -12,9 +12,11 @@ import EasyPeasy
 
 class GroupsViewController: UIViewController{
     
-    var presenter: GroupsPresenter?
-    var tableView = UITableView()
+    // MARK: private variables
+    private var presenter: GroupsPresenter?
+    private var tableView = UITableView()
     
+    // MARK: init
     init(presenter: GroupsPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -24,6 +26,7 @@ class GroupsViewController: UIViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
@@ -33,21 +36,21 @@ class GroupsViewController: UIViewController{
         view.addSubview(tableView)
         tableView.easy.layout(Top(), Leading(), Trailing(), Bottom())
         tableView.rowHeight = UITableView.automaticDimension
-        
-        
     }
     
+    // MARK: viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.getDataForGroups()
-        
     }
     
+    // MARK: reload
     func reload() {
         tableView.reloadData()
     }
 }
 
+// MARK: extension
 extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,7 +64,4 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setUp(groupModel: model)
         return cell
     }
-    
-
-
 }

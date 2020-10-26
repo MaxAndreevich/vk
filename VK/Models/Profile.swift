@@ -58,7 +58,6 @@ struct Counters: Codable {
         case friends
         case followers
         case photos
-        
     }
     
     init() {
@@ -66,7 +65,5 @@ struct Counters: Codable {
         friends = 0
         photos = 0
     }
-    
-
 }
 

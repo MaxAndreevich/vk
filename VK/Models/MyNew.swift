@@ -15,6 +15,5 @@ struct MyNew: Codable {
     enum CodingKeys: String, CodingKey {
 
         case postid = "post_id"
-         
     }
 }
