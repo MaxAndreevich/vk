@@ -307,7 +307,7 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
         let layout = UICollectionViewFlowLayout()
         let cellWidthHeightConstant: CGFloat = (width - 30) / 3
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 5
+//        layout.minimumLineSpacing = 1
         layout.itemSize = CGSize(width: cellWidthHeightConstant, height: cellWidthHeightConstant)
         return layout
     }

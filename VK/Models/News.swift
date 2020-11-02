@@ -8,6 +8,14 @@
 
 import Foundation
 
+struct TestStr {
+    
+}
+
+class TestClass {
+    
+}
+
 struct News: Decodable {
     
     var id: Int = 0
@@ -63,6 +71,7 @@ struct News: Decodable {
             enum CodingKeys: String, CodingKey {
                 case photoForWall = "photo_130"
             }
+           
         }
     }
 }
@@ -83,4 +92,7 @@ struct Views: Codable {
     var count: Int?
 }
 
+extension Comments {
+    
+}
 
